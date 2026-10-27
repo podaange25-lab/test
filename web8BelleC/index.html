@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belle & Chic | Boutique de Mode Féminine à Ouagadougou</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           VARIABLES & RESET
+        ========================================= */
+        :root {
+            --color-primary: #4A1523; /* Bordeaux élégant inspiré de la devanture */
+            --color-accent: #D4AF37; /* Or pour le côté chic */
+            --color-bg: #FCFAF8; /* Crème très clair */
+            --color-text: #2C2C2C; /* Gris foncé pour le texte */
+            --color-white: #FFFFFF;
+            
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; border-radius: 4px; }
+
+        /* =========================================
+           TYPOGRAPHIE & BOUTONS
+        ========================================= */
+        h1, h2, h3 { font-family: var(--font-title); font-weight: 600; color: var(--color-primary); }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: var(--color-accent);
+            margin: 15px auto 40px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            font-family: var(--font-body);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white) !important; /* Force le texte en blanc par défaut */
+            box-shadow: 0 4px 15px rgba(74, 21, 35, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--color-accent);
+            color: var(--color-primary) !important; /* Texte bordeaux sur fond or au survol */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+        /* =========================================
+           HEADER & NAVIGATION
+        ========================================= */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            background-color: var(--color-white);
+            padding: 15px 5%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-family: var(--font-title);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--color-white);
+            letter-spacing: 1px;
+        }
+
+        header.scrolled .logo { color: var(--color-primary); }
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        /* L'ajout de :not(.btn) empêche ce style de s'appliquer au bouton Commander */
+        .nav-links a:not(.btn) {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        
+        header.scrolled .nav-links a:not(.btn) { color: var(--color-text); }
+        .nav-links a:not(.btn):hover { color: var(--color-accent) !important; }
+
+        /* =========================================
+           HERO SECTION (image 4 - La robe rose)
+        ========================================= */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(74, 21, 35, 0.6), rgba(0, 0, 0, 0.5)), url('images/ima1.jpg') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content { max-width: 800px; color: var(--color-white); animation: fadeIn 1.5s ease-out; }
+        
+        .hero h1 { font-size: 4.5rem; line-height: 1.2; margin-bottom: 20px; color: var(--color-white); }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px; }
+
+        /* =========================================
+           COLLECTIONS
+        ========================================= */
+        .collections { padding: 100px 5%; background-color: var(--color-bg); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .product-card {
+            background: var(--color-white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.04);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover { transform: translateY(-10px); }
+
+        .product-img-wrapper {
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            transition: transform 0.7s ease;
+        }
+
+        .product-card:hover .product-img { transform: scale(1.05); }
+
+        .product-info { padding: 25px; text-align: center; }
+        .product-category { font-size: 0.8rem; color: var(--color-accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px;}
+        .product-title { font-size: 1.4rem; margin-bottom: 20px; }
+        
+        /* =========================================
+           LA BOUTIQUE (image 1)
+        ========================================= */
+        .boutique {
+            padding: 100px 5%;
+            background-color: var(--color-white);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .boutique-text h2 { text-align: left; margin-bottom: 20px; font-size: 2.8rem;}
+        .boutique-text p { margin-bottom: 25px; font-size: 1.1rem; color: #555; }
+        
+        .boutique-img { 
+            box-shadow: 15px 15px 0px var(--color-accent); 
+            border-radius: 0;
+        }
+
+        /* =========================================
+           CONTACT & FOOTER
+        ========================================= */
+        .contact { padding: 100px 5%; text-align: center; background-color: var(--color-bg); }
+        .contact-wrapper { max-width: 800px; margin: 0 auto; background: var(--color-white); padding: 50px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        
+        .contact-info { margin-bottom: 40px; }
+        .contact-info p { font-size: 1.1rem; margin-bottom: 15px; }
+        .contact-info i { color: var(--color-accent); margin-right: 10px; font-weight: bold;}
+
+        footer { background: var(--color-primary); color: rgba(255,255,255,0.8); text-align: center; padding: 30px 5%; font-size: 0.9rem; }
+        footer span { color: var(--color-accent); font-weight: 600; }
+
+        /* =========================================
+           ANIMATIONS & RESPONSIVE
+        ========================================= */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 900px) {
+            .boutique { grid-template-columns: 1fr; text-align: center; }
+            .boutique-text h2 { text-align: center; }
+            .boutique-img { margin: 0 auto; }
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; /* Menu mobile à ajouter si besoin */ }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <a href="#" class="logo">Belle & Chic</a>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#collections">Nouveautés</a></li>
+            <li><a href="#boutique">La Boutique</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://wa.me/22675663636" class="btn btn-primary" target="_blank">Commander</a></li>
+        </ul>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>L'Élégance au Féminin</h1>
+            <p>Découvrez notre nouvelle collection de vêtements pour femmes et enfants. La mode chic et tendance à Ouagadougou.</p>
+            <a href="#collections" class="btn btn-primary">Découvrir la collection</a>
+        </div>
+    </section>
+
+    <!-- COLLECTIONS GRID -->
+    <section id="collections" class="collections">
+        <h2 class="section-title">Nos Nouveautés</h2>
+        
+        <div class="grid">
+            <!-- Produit 1 : Robe Bleue -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="images/ima2.jpg" alt="Robe Moulante Bleue et Blanche" class="product-img">
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Mode Femme</p>
+                    <h3 class="product-title">Robe Mi-Longue Bicolore Marine</h3>
+                    <a href="https://wa.me/22675663636?text=Bonjour,%20je%20suis%20intéressée%20par%20la%20robe%20mi-longue%20marine%20(ima2)" class="btn btn-primary" target="_blank">Commander</a>
+                </div>
+            </div>
+            
+            <!-- Produit 2 : Ensemble Pantalon -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="images/ima5.jpg" alt="Ensemble Pantalon Plissé Bleu" class="product-img">
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Mode Femme</p>
+                    <h3 class="product-title">Ensemble Pantalon Plissé & Chemisier</h3>
+                    <a href="https://wa.me/22675663636?text=Bonjour,%20je%20suis%20intéressée%20par%20l'ensemble%20pantalon%20plissé%20bleu%20(ima5)" class="btn btn-primary" target="_blank">Commander</a>
+                </div>
+            </div>
+
+            <!-- Produit 3 : Robe Marron -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="images/ima3.jpg" alt="Robe Moulante Marron" class="product-img">
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Mode Femme</p>
+                    <h3 class="product-title">Robe Mi-Longue Bicolore Chocolat</h3>
+                    <a href="https://wa.me/22675663636?text=Bonjour,%20je%20suis%20intéressée%20par%20la%20robe%20mi-longue%20chocolat%20(ima3)" class="btn btn-primary" target="_blank">Commander</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LA BOUTIQUE SECTION -->
+    <section id="boutique" class="boutique">
+        <div class="boutique-text">
+            <h2>Votre Espace Mode à Ouagadougou</h2>
+            <p>Située dans le quartier de Bassinko à Ouagadougou, la boutique <strong>Belle & Chic</strong> vous accueille dans un cadre moderne et chaleureux.</p>
+            <p>Spécialisée dans le prêt-à-porter pour femmes et enfants, nous sélectionnons pour vous des pièces uniques, alliant confort, tendance et élégance pour toutes vos occasions (bureau, soirées, événements).</p>
+            <a href="#contact" class="btn btn-primary">Nous rendre visite</a>
+        </div>
+        <div class="boutique-img-wrapper">
+            <img src="images/ima6.jpg" alt="Devanture Boutique Belle & Chic Bassinko" class="boutique-img">
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact">
+        <h2 class="section-title">Nous Contacter</h2>
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <p>📍 <strong>Adresse :</strong> Bassinko, Ouagadougou (C984+5MR), Burkina Faso</p>
+                <p>📞 <strong>Téléphone / WhatsApp :</strong> +226 75 66 36 36</p>
+                <p>✉️ <strong>Email :</strong> palenfofelicite65@gmail.com</p>
+            </div>
+            <a href="https://wa.me/22675663636" class="btn btn-primary" target="_blank" style="width: 100%; max-width: 300px;">Écrivez-nous sur WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 <span>Belle & Chic</span>. Tous droits réservés. | Boutique de mode à Ouagadougou.</p>
+    </footer>
+
+    <!-- SCRIPT POUR LE SCROLL DU HEADER -->
+    <script>
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
